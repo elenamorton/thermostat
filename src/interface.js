@@ -4,10 +4,11 @@ $(document).ready(function(){
     
   getMyThermostat();
   updateTemperature();
+  displayWeather("London");
 
   $('#temperature-up').on('click', function() {
     thermostat.upTemperature();
-    setMyTemperature()
+    setMyTemperature();
     updateTemperature();
   });
 
@@ -33,8 +34,6 @@ $(document).ready(function(){
     updateTemperature();
   });
     
-  displayWeather("London");
-    
   $('#current-city').change(function() {
     var city = $('#current-city').val();
     displayWeather(city);
@@ -58,7 +57,6 @@ $(document).ready(function(){
     data = thermostat.temperature;
     $.post(LOCAL_URL, { temp: data } );
   }
-    
     
   function displayWeather(city) {
     var url = 'http://api.openweathermap.org/data/2.5/weather?q=' ;
