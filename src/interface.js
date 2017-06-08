@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  var LOCAL_URL = 'http://localhost:9292/temperature';
   var thermostat = new Thermostat();
     
   getMyThermostat();
@@ -6,6 +7,7 @@ $(document).ready(function(){
 
   $('#temperature-up').on('click', function() {
     thermostat.upTemperature();
+    setMyTemperature()
     updateTemperature();
   });
 
@@ -44,13 +46,19 @@ $(document).ready(function(){
   }
  
   function getMyThermostat() {
-    var url = 'http://localhost:9292/temperature';
+    var url = LOCAL_URL;
     $.get(url, function(data) {
       var data = JSON.parse(data);
       thermostat.setCurrentTemperature(data);
       updateTemperature();
     }); 
   }
+
+  function setMyTemperature() {
+    data = thermostat.temperature;
+    $.post(LOCAL_URL, { temp: data } );
+  }
+    
     
   function displayWeather(city) {
     var url = 'http://api.openweathermap.org/data/2.5/weather?q=' ;
