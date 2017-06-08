@@ -1,5 +1,6 @@
 $(document).ready(function(){
   var thermostat = new Thermostat();
+    
   updateTemperature();
 
   $('#temperature-up').on('click', function() {
@@ -19,11 +20,13 @@ $(document).ready(function(){
 
   $('#powersaving-on').on('click', function() {
     thermostat.turnPowerSavingOn();
+    $('#power-saving-status').text('ON');  
     updateTemperature();
   });
 
   $('#powersaving-off').on('click', function() {
     thermostat.turnPowerSavingOff();
+    $('#power-saving-status').text('OFF');  
     updateTemperature();
   });
 
