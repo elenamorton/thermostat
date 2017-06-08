@@ -13,6 +13,11 @@ Thermostat.prototype.getCurrentTemperature = function() {
   return this.temperature;
 };
 
+Thermostat.prototype.setCurrentTemperature = function(temp) {
+  this.temperature = temp;
+    console.log(this.temperature);
+};
+
 Thermostat.prototype.upTemperature = function () {
   if (this.isMaximumTemperature()) {
     return;
