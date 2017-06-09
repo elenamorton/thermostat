@@ -1,10 +1,11 @@
 $(document).ready(function(){
-  var LOCAL_URL = 'http://localhost:9292/temperature';
+  var LOCAL_URL = 'http://localhost:9292';
   var thermostat = new Thermostat();
     
   getMyThermostat();
   updateTemperature();
-  displayWeather("London");
+  //displayWeather("London");
+  getMyCity();
 
   $('#temperature-up').on('click', function() {
     thermostat.upTemperature();
@@ -44,8 +45,18 @@ $(document).ready(function(){
     $('#temperature').attr('class',    thermostat.getCurrentEnergyUsage());
   }
  
+  function getMyCity() {
+    var url = LOCAL_URL + '/city';
+    $.get(url, function(data) {
+      var city = JSON.parse(data);
+      console.log(city);
+      $('#current-city').val(city);
+      displayWeather(city);
+    }); 
+  }
+    
   function getMyThermostat() {
-    var url = LOCAL_URL;
+    var url = LOCAL_URL + '/temperature';
     $.get(url, function(data) {
       var data = JSON.parse(data);
       thermostat.setCurrentTemperature(data);
@@ -55,7 +66,7 @@ $(document).ready(function(){
 
   function setMyTemperature() {
     data = thermostat.temperature;
-    $.post(LOCAL_URL, { temp: data } );
+    $.post(LOCAL_URL + '/temperature', { temp: data } );
   }
     
   function displayWeather(city) {

@@ -19,6 +19,10 @@ class Thermostat < Sinatra::Base
       23.to_json
   end
     
+  get '/city' do
+      "Tokyo".to_json
+  end
+    
   post '/temperature' do
     results << JSON.parse(params[:temp])
     p results
