@@ -9,7 +9,7 @@ $(document).ready(function(){
 
   $('#temperature-up').on('click', function() {
     thermostat.upTemperature();
-    setMyTemperature();
+    setMyThermostat();
     updateTemperature();
   });
 
@@ -51,6 +51,8 @@ $(document).ready(function(){
       var city = JSON.parse(data);
       console.log(city);
       $('#current-city').val(city);
+      $('#current-city option:contains(' + city + ')').prop({selected: true});
+          
       displayWeather(city);
     }); 
   }
@@ -64,7 +66,7 @@ $(document).ready(function(){
     }); 
   }
 
-  function setMyTemperature() {
+  function setMyThermostat() {
     data = thermostat.temperature;
     $.post(LOCAL_URL + '/temperature', { temp: data } );
   }
